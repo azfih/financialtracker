@@ -16,11 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String userName = "";
+  String userGender = "female";
   String welcomeMessage = "Welcome back! Let's manage your finances.";
-  double salary = 0.0;
-  double sideEarnings = 0.0;
-  double monthlyExpenses = 0.0;
-  double savingsGoal = 0.0;
 
   @override
   void initState() {
@@ -36,11 +33,7 @@ class _HomePageState extends State<HomePage> {
     if (snapshot.exists) {
       setState(() {
         userName = snapshot.child('name').value as String;
-        salary = double.tryParse(snapshot.child('salary').value.toString()) ?? 0.0;
-        sideEarnings = double.tryParse(snapshot.child('sideEarnings').value.toString()) ?? 0.0;
-        monthlyExpenses = double.tryParse(snapshot.child('monthlyExpenses').value.toString()) ?? 0.0;
-        savingsGoal = double.tryParse(snapshot.child('savingsGoal').value.toString()) ?? 0.0;
-
+        userGender = snapshot.child('gender').value as String;
         welcomeMessage = "Hello $userName! Ready to make smarter financial decisions?";
       });
     }
@@ -48,26 +41,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String avatarImage = "assets/images/female.png";
+    if (userGender == "male") {
+      avatarImage = "assets/images/male.webp";
+    } else if (userGender == "other") {
+      avatarImage = "assets/images/other.jpeg";
+    }
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF024466),
         elevation: 0,
         title: Row(
           children: [
+            Icon(Icons.account_circle, color: Colors.white, size: 30),
+            SizedBox(width: 10),
             Text(
               "Hello, $userName",
-              style: TextStyle(color: Colors.black, fontSize: 18),
+              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings, color: Colors.black),
-            onPressed: () {
-              // Navigate to settings
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -76,63 +70,61 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               welcomeMessage,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black87),
             ),
             SizedBox(height: 20),
-            // Activity Section with Avatar and Financial Info
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    "https://via.placeholder.com/150", // Placeholder for user profile image
-                  ),
+                  backgroundImage: AssetImage(avatarImage),
+                  radius: 40,
                 ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Hello $userName", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(
+                      "Hello $userName",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+                    ),
                     SizedBox(height: 8),
-                    Text("Salary: \$${salary.toStringAsFixed(2)}", style: TextStyle(fontSize: 16)),
-                    Text("Side Earnings: \$${sideEarnings.toStringAsFixed(2)}", style: TextStyle(fontSize: 16)),
-                    Text("Monthly Expenses: \$${monthlyExpenses.toStringAsFixed(2)}", style: TextStyle(fontSize: 16)),
-                    Text("Savings Goal: \$${savingsGoal.toStringAsFixed(2)}", style: TextStyle(fontSize: 16)),
+                    Text("Ready to manage your finances?", style: TextStyle(fontSize: 16, color: Colors.black54)),
                   ],
                 ),
               ],
             ),
             SizedBox(height: 20),
-            // Quote Tile
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.green.shade100,
+                color: Color(0xFFF2FDF2),
                 borderRadius: BorderRadius.circular(15),
+                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Financial Planning",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green.shade700),
                   ),
                   SizedBox(height: 10),
                   Text(
                     "A goal without a plan is just a wish. Let's start planning your financial future today!",
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14, color: Color(0xFF7A9872),
+                    ),
                   ),
                 ],
               ),
             ),
             SizedBox(height: 20),
-            // Full-width tiles for other sections
             Expanded(
               child: ListView(
                 children: [
                   _buildTile(
                     title: "Reports",
                     icon: Icons.pie_chart,
-                    color: Colors.blue.shade100,
+                    color: Color(0xFFCAC6DD),
                     text: "Want to check how closely you followed your financial plans? Let's see your reports.",
                     onTap: () {
                       Navigator.push(
@@ -141,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
+                  SizedBox(height: 16),
                   _buildTile(
                     title: "Planning",
                     icon: Icons.schedule,
@@ -153,6 +146,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
+                  SizedBox(height: 16),
                   _buildTile(
                     title: "Expenses",
                     icon: Icons.money_off,
@@ -165,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
+                  SizedBox(height: 16),
                   _buildTile(
                     title: "Income",
                     icon: Icons.money_off,
@@ -184,7 +179,10 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF024466),
         type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -202,11 +200,13 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.money_off),
             label: "Expenses",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.money_off),
+            label: "Income",
+          ),
         ],
         onTap: (index) {
-          // Handle navigation based on index
           if (index == 0) {
-            // Home
           } else if (index == 1) {
             Navigator.push(
               context,
@@ -221,6 +221,11 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ExpensesPage(userId: widget.userId)),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => IncomePage(userId: widget.userId)),
             );
           }
         },
@@ -238,13 +243,14 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: double.infinity, // Take full width of the screen
+        width: double.infinity,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
         ),
-        height: 150, // Fixed height to make the tiles rectangular
+        height: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

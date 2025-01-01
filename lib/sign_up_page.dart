@@ -37,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF024466), // Background color
+          color: Color(0xFF024466),
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -48,23 +48,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Centered Heading
+
                     Text(
                       'Sign Up',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFFCF4E7), // Heading text color
+                        color: Color(0xFFFCF4E7),
                       ),
                     ),
                     SizedBox(height: 20),
 
-                    // Email Field
+
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.white), // Placeholder color
+                        labelStyle: TextStyle(color: Colors.white),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
@@ -73,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white), // Input text color
+                      style: TextStyle(color: Colors.white),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email.';
@@ -86,12 +86,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: 20),
 
-                    // Password Field
+
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        labelStyle: TextStyle(color: Colors.white), // Placeholder color
+                        labelStyle: TextStyle(color: Colors.white),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
@@ -100,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white), // Input text color
+                      style: TextStyle(color: Colors.white),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -114,11 +114,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: 20),
 
-                    // Sign Up Button
                     ElevatedButton(
                       onPressed: _signUp,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFF4AC62), // Button color
+                        backgroundColor: Color(0xFFF4AC62),
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       ),
                       child: Text(
@@ -131,13 +130,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: 20),
 
-                    // Login Text Link
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Already have an account? ",
-                          style: TextStyle(color: Color(0xFFFCF4E7)), // Text color
+                          style: TextStyle(color: Color(0xFFFCF4E7)),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -149,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Text(
                             "Login",
                             style: TextStyle(
-                              color: Color(0xFFF4AC62), // Login text color
+                              color: Color(0xFFF4AC62),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

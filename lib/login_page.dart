@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF024466), // Background color
+          color: Color(0xFF024466),
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -54,13 +54,13 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Centered Heading
+
                     Text(
                       'Login',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFFCF4E7), // Heading text color
+                        color: Color(0xFFFCF4E7),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.white), // Placeholder color
+                        labelStyle: TextStyle(color: Colors.white),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white), // Input text color
+                      style: TextStyle(color: Colors.white),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        labelStyle: TextStyle(color: Colors.white), // Placeholder color
+                        labelStyle: TextStyle(color: Colors.white),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white), // Input text color
+                      style: TextStyle(color: Colors.white),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: _login,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFF4AC62), // Button color
+                        backgroundColor: Color(0xFFF4AC62),
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       ),
                       child: Text(
@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           "Don't have an account? ",
-                          style: TextStyle(color: Color(0xFFCAC6DD)), // Text color
+                          style: TextStyle(color: Color(0xFFCAC6DD)),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             "Sign Up",
                             style: TextStyle(
-                              color: Color(0xFFF4AC62), // Sign Up text color
+                              color: Color(0xFFF4AC62),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
