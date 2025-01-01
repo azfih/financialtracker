@@ -37,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF1A3636), // Background color
+          color: Color(0xFF024466), // Background color
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Heading text color
+                        color: Color(0xFFFCF4E7), // Heading text color
                       ),
                     ),
                     SizedBox(height: 20),
@@ -118,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ElevatedButton(
                       onPressed: _signUp,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFF6B17A), // Button color
+                        backgroundColor: Color(0xFFF4AC62), // Button color
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       ),
                       child: Text(
@@ -137,7 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       children: [
                         Text(
                           "Already have an account? ",
-                          style: TextStyle(color: Colors.white), // Text color
+                          style: TextStyle(color: Color(0xFFFCF4E7)), // Text color
                         ),
                         GestureDetector(
                           onTap: () {
@@ -149,7 +149,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Text(
                             "Login",
                             style: TextStyle(
-                              color: Color(0xFFF6B17A), // Login text color
+                              color: Color(0xFFF4AC62), // Login text color
                               fontWeight: FontWeight.bold,
                             ),
                           ),

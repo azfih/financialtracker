@@ -1,3 +1,4 @@
+import 'package:financialtracker/income_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'planning_page.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetchUserData() async {
-    final DatabaseReference userRef = FirebaseDatabase.instance.ref().child('users').child(widget.userId);
+    final DatabaseReference userRef = FirebaseDatabase.instance.ref().child('Users').child(widget.userId);
 
     final snapshot = await userRef.get();
 
@@ -53,12 +54,6 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         title: Row(
           children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(
-                "https://via.placeholder.com/150", // Placeholder for user profile image
-              ),
-            ),
-            SizedBox(width: 10),
             Text(
               "Hello, $userName",
               style: TextStyle(color: Colors.black, fontSize: 18),
@@ -161,12 +156,24 @@ class _HomePageState extends State<HomePage> {
                   _buildTile(
                     title: "Expenses",
                     icon: Icons.money_off,
-                    color: Colors.red.shade100,
+                    color: Color(0xFFF4AC62),
                     text: "Track your expenses and keep your budget under control. Let’s manage your spending wisely!",
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => ExpensesPage(userId: widget.userId)),
+                      );
+                    },
+                  ),
+                  _buildTile(
+                    title: "Income",
+                    icon: Icons.money_off,
+                    color: Color(0xFF7A9872),
+                    text: "Track all your sources of income and make smart plans. Let's see your incomes!",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => IncomePage(userId: widget.userId)),
                       );
                     },
                   ),

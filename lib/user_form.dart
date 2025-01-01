@@ -16,11 +16,7 @@ class _UserFormState extends State<UserForm> {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _salaryController = TextEditingController();
-  final TextEditingController _sideEarningsController = TextEditingController();
-  final TextEditingController _monthlyExpensesController = TextEditingController();
-  final TextEditingController _savingsGoalController = TextEditingController();
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref().child('users');
+  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref().child('Users');
 
   String? _selectedGender;
 
@@ -30,10 +26,6 @@ class _UserFormState extends State<UserForm> {
         'name': _nameController.text,
         'age': _ageController.text,
         'gender': _selectedGender,
-        'salary': _salaryController.text,
-        'sideEarnings': _sideEarningsController.text,
-        'monthlyExpenses': _monthlyExpensesController.text,
-        'savingsGoal': _savingsGoalController.text,
       });
 
       Navigator.pushReplacement(
@@ -46,6 +38,7 @@ class _UserFormState extends State<UserForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF024466),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -57,13 +50,13 @@ class _UserFormState extends State<UserForm> {
                 children: [
                   Text(
                     "Welcome! Let's get your budget plan set up.",
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Color(0xFF86A788)),
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Color(0xFFFCF4E7)),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
                   Text(
                     "Please provide your details to help us track your financial budget.",
-                    style: TextStyle(fontSize: 16.0, color: Color(0xFF89A8B2)),
+                    style: TextStyle(fontSize: 16.0, color: Color(0xFFFCF4E7)),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
@@ -71,11 +64,17 @@ class _UserFormState extends State<UserForm> {
                     controller: _nameController,
                     decoration: InputDecoration(
                       labelText: "Name",
+                      labelStyle: TextStyle(color: Colors.white), // Placeholder color
                       border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
-                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12)
                     ),
+                    style: TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter your name.";
@@ -88,11 +87,17 @@ class _UserFormState extends State<UserForm> {
                     controller: _ageController,
                     decoration: InputDecoration(
                       labelText: "Age",
+                      labelStyle: TextStyle(color: Colors.white), // Placeholder color
                       border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ), // White background for fields
                       contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                     ),
+                    style: TextStyle(color: Colors.white),
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -110,10 +115,17 @@ class _UserFormState extends State<UserForm> {
                     value: _selectedGender,
                     decoration: InputDecoration(
                       labelText: "Gender",
+                      labelStyle: TextStyle(color: Colors.white), // Placeholder color
                       border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ), // White background for fields
+                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),// White background for fields
                     ),
+                    style: TextStyle(color: Colors.grey),
                     onChanged: (value) {
                       setState(() {
                         _selectedGender = value;
@@ -132,98 +144,11 @@ class _UserFormState extends State<UserForm> {
                     ))
                         .toList(),
                   ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    controller: _salaryController,
-                    decoration: InputDecoration(
-                      labelText: "Salary",
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
-                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter your salary.";
-                      }
-                      double salary = double.tryParse(value) ?? 0;
-                      if (salary <= 0) {
-                        return "Salary must be greater than zero.";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    controller: _sideEarningsController,
-                    decoration: InputDecoration(
-                      labelText: "Side Earnings",
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
-                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return null;  // Side earnings can be zero.
-                      }
-                      double sideEarnings = double.tryParse(value) ?? 0;
-                      if (sideEarnings < 0) {
-                        return "Side earnings cannot be negative.";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    controller: _monthlyExpensesController,
-                    decoration: InputDecoration(
-                      labelText: "Monthly Expenses",
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
-                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter your monthly expenses.";
-                      }
-                      double expenses = double.tryParse(value) ?? 0;
-                      if (expenses <= 0) {
-                        return "Monthly expenses must be greater than zero.";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 12),
-                  TextFormField(
-                    controller: _savingsGoalController,
-                    decoration: InputDecoration(
-                      labelText: "Savings Goal (Optional)",
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.white, // White background for fields
-                      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        double savings = double.tryParse(value) ?? 0;
-                        if (savings <= 0) {
-                          return "Savings goal must be greater than zero.";
-                        }
-                      }
-                      return null;
-                    },
-                  ),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _submitForm,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF6B17A),
+                      backgroundColor: Color(0xFFF4AC62),
                       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
