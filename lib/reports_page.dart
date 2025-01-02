@@ -46,7 +46,8 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
   }
 
   Future<void> fetchExpenses() async {
-    final userRef = databaseReference.child("Users").child(widget.userId).child("Expenses");
+    final userRef = databaseReference.child("Users").child(widget.userId).child(
+        "Expenses");
 
     final snapshot = await userRef.get();
     if (snapshot.exists) {
@@ -62,7 +63,8 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
         String date = expenseData["date"];
 
 
-        tempCategoryTotals[category] = (tempCategoryTotals[category] ?? 0) + amount;
+        tempCategoryTotals[category] =
+            (tempCategoryTotals[category] ?? 0) + amount;
         tempCategoryCounts[category] = (tempCategoryCounts[category] ?? 0) + 1;
 
 
@@ -87,7 +89,8 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
 
   Map<String, double> getCategoryPercentages() {
     double total = getTotalExpense();
-    return categoryTotals.map((key, value) => MapEntry(key, (value / total) * 100));
+    return categoryTotals.map((key, value) =>
+        MapEntry(key, (value / total) * 100));
   }
 
   @override
@@ -111,7 +114,7 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
             buildCategoryPieChart(categoryPercentages),
             buildSectionTitle('Category Details'),
             buildCategoryDetails(),
-            buildViewFurtherDetailsButton(context),
+
           ],
         ),
       ),
@@ -175,10 +178,11 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
                 sideTitles: SideTitles(
                   showTitles: true,
                   reservedSize: 50,
-                  getTitlesWidget: (value, meta) => Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Text('Rs. ${value.toInt()}'),
-                  ),
+                  getTitlesWidget: (value, meta) =>
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text('Rs. ${value.toInt()}'),
+                      ),
                 ),
               ),
               bottomTitles: AxisTitles(
@@ -225,7 +229,9 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
                 title: '${entry.value.toStringAsFixed(1)}%',
                 radius: 60,
                 titleStyle: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               );
             }).toList(),
             centerSpaceRadius: 50,
@@ -257,13 +263,15 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
                 Row(
                   children: [
                     Icon(
-                      categoryIcons[category] ?? Icons.category, // Default icon if not defined
+                      categoryIcons[category] ?? Icons.category,
+                      // Default icon if not defined
                       color: pieChartColors[index % pieChartColors.length],
                     ),
                     SizedBox(width: 8),
                     Text(
                       category,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -285,37 +293,6 @@ class _ExpenseAnalyticsPageState extends State<ExpenseAnalyticsPage> {
           ),
         );
       },
-    );
-  }
-
-  Widget buildViewFurtherDetailsButton(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ExpenseDetailPage()),
-            );
-          },
-          child: Text('View Further Details'),
-        ),
-      ),
-    );
-  }
-}
-
-class ExpenseDetailPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Expense Details'),
-      ),
-      body: Center(
-        child: Text('Detailed expense information will be displayed here.'),
-      ),
     );
   }
 }
