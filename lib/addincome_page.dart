@@ -57,10 +57,12 @@ class _AddIncomePageState extends State<AddIncomePage> {
           SnackBar(content: Text('Failed to add income: $error')),
         );
       });
-      String userId = '';
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => IncomePage(userId: widget.userId))
+
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(userId: widget.userId)),
+            (route) => false,
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -68,6 +70,7 @@ class _AddIncomePageState extends State<AddIncomePage> {
       );
     }
   }
+
 
   void _clearFields() {
     setState(() {

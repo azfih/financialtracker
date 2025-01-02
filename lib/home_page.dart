@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ReportsPage(userId: widget.userId)),
+                        MaterialPageRoute(builder: (context) => ExpenseAnalyticsPage(userId: widget.userId)),
                       );
                     },
                   ),
@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
           } else if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ReportsPage(userId: widget.userId)),
+              MaterialPageRoute(builder: (context) => ExpenseAnalyticsPage(userId: widget.userId)),
             );
           } else if (index == 2) {
             Navigator.push(

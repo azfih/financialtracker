@@ -18,7 +18,7 @@ class _PlanningPageState extends State<PlanningPage> {
   double? totalBudget;
   double dailyLimit = 0.0;
   Map<String, double> dailyExpenses = {};
-  List<Map<String, dynamic>> todayExpenses = []; // For storing today's expenses
+  List<Map<String, dynamic>> todayExpenses = [];
 
   @override
   void initState() {

@@ -58,9 +58,12 @@ class _AddExpensePageState extends State<AddExpensePage> {
           SnackBar(content: Text('Failed to add expense: $error')),
         );
       });
-      Navigator.pushReplacement(
+
+      // Use pushAndRemoveUntil to reset the stack and navigate back to HomePage
+      Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => ExpensesPage(userId: widget.userId))
+        MaterialPageRoute(builder: (context) => HomePage(userId: widget.userId)),
+            (route) => false, // This clears all previous routes
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
